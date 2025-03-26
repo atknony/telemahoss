@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://gj5vgjsxp3nl"]
+[gd_scene load_steps=2 format=3 uid="uid://b77kdm8e0qx48"]
 
 [ext_resource type="Texture2D" uid="uid://bxjx6w5xyyug1" path="res://icon.svg" id="1_wbfu4"]
 
 [node name="Node2D" type="Node2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(267, 291)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 

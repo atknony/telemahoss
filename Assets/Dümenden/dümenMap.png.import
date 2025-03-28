@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5r77vl5iyblj"
-path="res://.godot/imported/pngtree-game-over-pixel-transparent-background-png-image_2916467.jpg-93a45f4c8228a72ae4c0f55b72b7086a.ctex"
+uid="uid://c7k25f7p02k0v"
+path="res://.godot/imported/dümenMap.png-a9a8b73669f46fc6ca194e0660b14b66.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/pngtree-game-over-pixel-transparent-background-png-image_2916467.jpg"
-dest_files=["res://.godot/imported/pngtree-game-over-pixel-transparent-background-png-image_2916467.jpg-93a45f4c8228a72ae4c0f55b72b7086a.ctex"]
+source_file="res://Assets/Dümenden/dümenMap.png"
+dest_files=["res://.godot/imported/dümenMap.png-a9a8b73669f46fc6ca194e0660b14b66.ctex"]
 
 [params]
 

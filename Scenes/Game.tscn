@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://b77kdm8e0qx48"]
+[gd_scene load_steps=3 format=3 uid="uid://b77kdm8e0qx48"]
 
+[ext_resource type="Script" uid="uid://d0ecyysn3ph1x" path="res://Scripts/game.gd" id="1_gl6un"]
 [ext_resource type="Texture2D" uid="uid://c7k25f7p02k0v" path="res://Assets/Dümenden/dümenMap.png" id="1_iukft"]
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_gl6un")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
@@ -10,3 +12,8 @@
 position = Vector2(575.5, 325)
 scale = Vector2(1.925, 1.62)
 texture = ExtResource("1_iukft")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4.0
+
+[connection signal="timeout" from="Timer" to="." method="enemy_spawner"]

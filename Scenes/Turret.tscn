@@ -1,5 +1,16 @@
-[gd_scene format=3 uid="uid://dhwng3c36gswq"]
+[gd_scene load_steps=3 format=3 uid="uid://dhwng3c36gswq"]
+
+[ext_resource type="Texture2D" uid="uid://bjakvvax6o81d" path="res://Assets/Dümenden/turretRed.png" id="1_8m3st"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8m3st"]
+radius = 6.25
 
 [node name="Area2D" type="Area2D"]
+scale = Vector2(0.8, 0.8)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 3
+texture = ExtResource("1_8m3st")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8m3st")

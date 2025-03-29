@@ -1,15 +1,17 @@
 extends CharacterBody2D
 
-@onready var ray = $RayCast2D
+@onready var front = $Front
+@onready var left = $Left
+@onready var right = $Right
 
 func _process(delta: float) -> void:
-	var direction = Vector2.RIGHT.rotated(rotation - 90)
+	var direction = Vector2.RIGHT.rotated(rotation - PI / 2)
 	position += direction * 1
 	move_and_slide()
 
-
 func _physics_process(delta):
-	if ray.is_colliding():
-		var collider = ray.get_collider()
-		if collider is StaticBody2D:
-			rotation += 90
+	if front.get_collider() is StaticBody2D:
+		if right.get_collider() is StaticBody2D && left.get_collider() is not StaticBody2D:
+			rotation -= PI / 2
+		else:
+			rotation += PI / 2

@@ -1,11 +1,32 @@
-[gd_scene load_steps=5 format=3 uid="uid://b77kdm8e0qx48"]
+[gd_scene load_steps=12 format=3 uid="uid://b77kdm8e0qx48"]
 
 [ext_resource type="Script" uid="uid://d0ecyysn3ph1x" path="res://Scripts/game.gd" id="1_gl6un"]
 [ext_resource type="Texture2D" uid="uid://c7k25f7p02k0v" path="res://Assets/Dümenden/dümenMap.png" id="1_iukft"]
 [ext_resource type="PackedScene" uid="uid://xxwaps0biq8j" path="res://Scenes/Enemy.tscn" id="2_j5yw3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j5yw3"]
-size = Vector2(450, 504)
+size = Vector2(138, 267)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kldst"]
+size = Vector2(313, 82)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b2bpf"]
+size = Vector2(225, 248)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7lihs"]
+size = Vector2(406, 74.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fgofq"]
+size = Vector2(380, 130.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2irst"]
+size = Vector2(463, 127)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bf53h"]
+size = Vector2(149, 278.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_71axn"]
+size = Vector2(230.5, 117)
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_gl6un")
@@ -19,12 +40,41 @@ scale = Vector2(1.925, 1.62)
 texture = ExtResource("1_iukft")
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
 autostart = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(456, 334)
+position = Vector2(300, 332.5)
 shape = SubResource("RectangleShape2D_j5yw3")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(307.5, 86)
+shape = SubResource("RectangleShape2D_kldst")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(575.5, 256)
+shape = SubResource("RectangleShape2D_b2bpf")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(572, 496.375)
+shape = SubResource("RectangleShape2D_7lihs")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(967, 394)
+shape = SubResource("RectangleShape2D_fgofq")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(921, 188)
+shape = SubResource("RectangleShape2D_2irst")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(77, 184.25)
+shape = SubResource("RectangleShape2D_bf53h")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(114.75, 443)
+shape = SubResource("RectangleShape2D_71axn")
 
 [connection signal="timeout" from="Timer" to="." method="enemy_spawn"]

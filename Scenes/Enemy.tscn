@@ -18,3 +18,6 @@ shape = SubResource("RectangleShape2D_m1htj")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 3
 texture = ExtResource("1_m1htj")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0.199954, -12.8)

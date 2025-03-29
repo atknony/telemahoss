@@ -1,10 +1,15 @@
 extends CharacterBody2D
 
-func _ready() -> void:
-	pass # Replace with function body.
+@onready var ray = $RayCast2D
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	position.x += 1
+	var direction = Vector2.RIGHT.rotated(rotation - 90)
+	position += direction * 1
 	move_and_slide()
+
+
+func _physics_process(delta):
+	if ray.is_colliding():
+		var collider = ray.get_collider()
+		if collider is StaticBody2D:
+			rotation += 90

@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://ftucf8mwy6nn"]
+
+[node name="bullet" type="Area2D"]

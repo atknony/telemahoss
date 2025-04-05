@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://47q5wv0rkagv" path="res://Scripts/enemy.gd" id="1_wovta"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m1htj"]
-size = Vector2(12, 7)
+size = Vector2(6, 7)
 
 [node name="Enemy" type="CharacterBody2D"]
 rotation = 1.5708
@@ -12,7 +12,8 @@ scale = Vector2(5, 5)
 script = ExtResource("1_wovta")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -0.5)
+position = Vector2(-1.87397e-06, -0.600001)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_m1htj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

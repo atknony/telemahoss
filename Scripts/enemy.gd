@@ -13,5 +13,7 @@ func _physics_process(delta):
 	if front.get_collider() is StaticBody2D:
 		if right.get_collider() is StaticBody2D && left.get_collider() is not StaticBody2D:
 			rotation -= PI / 2
-		else:
+		elif left.get_collider() is StaticBody2D && right.get_collider() is not StaticBody2D:
 			rotation += PI / 2
+		else:
+			pass

@@ -7,7 +7,6 @@ extends CharacterBody2D
 func _process(delta: float) -> void:
 	var direction = Vector2.RIGHT.rotated(rotation - PI / 2)
 	position += direction * 1
-	move_and_slide()
 
 func _physics_process(delta):
 	if front.get_collider() is StaticBody2D:

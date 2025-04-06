@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dhwng3c36gswq"]
+[gd_scene load_steps=5 format=3 uid="uid://dhwng3c36gswq"]
 
 [ext_resource type="Texture2D" uid="uid://bjakvvax6o81d" path="res://Assets/Dümenden/turretRed.png" id="1_8m3st"]
 [ext_resource type="Script" uid="uid://kc2yfgyi3f3w" path="res://Scripts/turret.gd" id="1_64uvh"]
+[ext_resource type="PackedScene" uid="uid://c635bvptrdw0d" path="res://Scenes/bullet.tscn" id="2_i4wwf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8m3st"]
 radius = 6.25
@@ -9,10 +10,18 @@ radius = 6.25
 [node name="Area2D" type="Area2D"]
 scale = Vector2(0.8, 0.8)
 script = ExtResource("1_64uvh")
+bullet_scene = ExtResource("2_i4wwf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 3
 texture = ExtResource("1_8m3st")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(8, 8)
 shape = SubResource("CircleShape2D_8m3st")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="area_shape_entered" from="." to="." method="_on_area_shape_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

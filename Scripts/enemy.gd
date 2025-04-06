@@ -12,4 +12,4 @@ func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, 
 	if Right.is_colliding():
 		rotation += PI / 2
 	else: 
-		print ( " ANannaan")
+		print ( " ANannannan")

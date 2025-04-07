@@ -2,13 +2,11 @@ extends Node2D
 
 @export var enemy_scene : PackedScene
 @onready var wave_started = true
+@onready var label = $Label
+@onready var money = 50
 
-func _ready() -> void:
-	pass
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	label.text = str(money)
 
 func enemy_spawn() -> void:
 	if wave_started:

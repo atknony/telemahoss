@@ -34,9 +34,15 @@ scale = Vector2(1.68, 1.68)
 script = ExtResource("1_gl6un")
 enemy_scene = ExtResource("2_j5yw3")
 
+[node name="Label" type="Label" parent="."]
+offset_left = 1040.48
+offset_right = 1152.48
+offset_bottom = 76.0
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="DümenMap" type="Sprite2D" parent="."]
+z_index = -50
 position = Vector2(575.5, 325)
 scale = Vector2(1.925, 1.62)
 texture = ExtResource("1_iukft")

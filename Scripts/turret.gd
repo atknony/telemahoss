@@ -1,24 +1,39 @@
 extends Area2D
 
 @export var bullet_scene: PackedScene
-@export var fire_rate := 0.5  # saniyede bir mermi
+@export var fire_rate := 0.5  # saniyede 1 mermi
 
-var enemies_in_range = []
+var enemies_in_range: Array[Area2D] = []
 var fire_timer := 0.0
 
 func _process(delta):
 	fire_timer -= delta
-	if fire_timer <= 0 and enemies_in_range.size() > 0:
-		var enemy = enemies_in_range[0]
+	var target = get_closest_enemy()
+
+	if fire_timer <= 0 and target:
+		shoot(target)
+		fire_timer = fire_rate
+	if target:
+		rotation = (target.global_position - global_position).angle() + PI / 2
+
+func get_closest_enemy() -> Area2D:
+	var closest: Area2D = null
+	var min_distance = INF
+
+	for enemy in enemies_in_range:
 		if is_instance_valid(enemy):
-			shoot(enemy)
-			fire_timer = fire_rate
+			var dist = global_position.distance_to(enemy.global_position)
+			if dist < min_distance:
+				min_distance = dist
+				closest = enemy
 		else:
-			enemies_in_range.erase(enemy)  # geçersizse sil
+			enemies_in_range.erase(enemy)  # düşman ölmüşse temizle
+
+	return closest
 
 func shoot(enemy):
 	var bullet = bullet_scene.instantiate()
-	bullet.global_position = global_position
+	bullet.global_position = position
 	bullet.direction = (enemy.global_position - global_position).normalized()
 	get_tree().current_scene.add_child(bullet)
 

@@ -32,5 +32,6 @@ target_position = Vector2(-2.89599e-05, -8)
 [node name="Timer" type="Timer" parent="."]
 wait_time = 9.0
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -42,7 +42,7 @@ scale = Vector2(1.925, 1.62)
 texture = ExtResource("1_iukft")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 0.8
 autostart = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -79,8 +79,12 @@ shape = SubResource("RectangleShape2D_bf53h")
 position = Vector2(114.75, 443)
 shape = SubResource("RectangleShape2D_71axn")
 
-[node name="Area2D" parent="." instance=ExtResource("4_kldst")]
+[node name="Turret1" parent="." instance=ExtResource("4_kldst")]
 position = Vector2(570, 264)
+scale = Vector2(5, 5)
+
+[node name="Turret2" parent="." instance=ExtResource("4_kldst")]
+position = Vector2(900, 370)
 scale = Vector2(5, 5)
 
 [connection signal="timeout" from="Timer" to="." method="enemy_spawn"]

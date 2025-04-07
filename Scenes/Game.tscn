@@ -30,6 +30,7 @@ size = Vector2(149, 278.5)
 size = Vector2(230.5, 117)
 
 [node name="Node2D" type="Node2D"]
+scale = Vector2(1.68, 1.68)
 script = ExtResource("1_gl6un")
 enemy_scene = ExtResource("2_j5yw3")
 

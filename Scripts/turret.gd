@@ -26,9 +26,6 @@ func get_closest_enemy() -> Area2D:
 			if dist < min_distance:
 				min_distance = dist
 				closest = enemy
-		else:
-			enemies_in_range.erase(enemy)  # düşman ölmüşse temizle
-
 	return closest
 
 func shoot(enemy):

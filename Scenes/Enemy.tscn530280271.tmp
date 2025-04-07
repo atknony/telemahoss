@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://djj2gc8yux82g" path="res://Scripts/enemy.gd" id="1_wovta"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m1htj"]
-size = Vector2(6, 10.1)
+size = Vector2(6, 7)
 
 [node name="Enemy" type="Area2D"]
 rotation = 1.5708
@@ -12,21 +12,25 @@ scale = Vector2(5, 5)
 script = ExtResource("1_wovta")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1.87397e-06, -2.15)
+position = Vector2(-1.87397e-06, -0.600001)
 shape = SubResource("RectangleShape2D_m1htj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 3
 texture = ExtResource("1_m1htj")
 
+[node name="Front" type="RayCast2D" parent="."]
+scale = Vector2(0.9, 0.9)
+target_position = Vector2(-2.89599e-05, -8)
+
 [node name="Right" type="RayCast2D" parent="."]
 rotation = 1.5708
-scale = Vector2(2, 2)
+scale = Vector2(0.9, 0.9)
 target_position = Vector2(-2.89599e-05, -8)
 
 [node name="Left" type="RayCast2D" parent="."]
 rotation = -1.5708
-scale = Vector2(2, 2)
+scale = Vector2(0.9, 0.9)
 target_position = Vector2(-2.89599e-05, -8)
 
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

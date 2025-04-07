@@ -6,7 +6,6 @@ extends Node2D
 func _ready() -> void:
 	pass
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
@@ -16,4 +15,3 @@ func enemy_spawn() -> void:
 		var enemy = enemy_scene.instantiate()
 		add_child(enemy)
 		enemy.position = Vector2(0,358)
-		print("yarark")

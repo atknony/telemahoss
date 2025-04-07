@@ -1,7 +1,7 @@
 extends Area2D
 
-func _ready() -> void:
-	pass
+@export var speed := 400.0
+var direction = Vector2.ZERO
 
-func _process(delta: float) -> void:
-	position.x += 1
+func _process(delta):
+	position += direction * speed * delta

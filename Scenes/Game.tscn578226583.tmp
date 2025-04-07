@@ -1,12 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://b77kdm8e0qx48"]
+[gd_scene load_steps=12 format=3 uid="uid://b77kdm8e0qx48"]
 
 [ext_resource type="Script" uid="uid://d0ecyysn3ph1x" path="res://Scripts/game.gd" id="1_gl6un"]
 [ext_resource type="Texture2D" uid="uid://c7k25f7p02k0v" path="res://Assets/Dümenden/dümenMap.png" id="1_iukft"]
 [ext_resource type="PackedScene" uid="uid://xxwaps0biq8j" path="res://Scenes/Enemy.tscn" id="2_j5yw3"]
-[ext_resource type="PackedScene" uid="uid://dhwng3c36gswq" path="res://Scenes/Turret.tscn" id="4_kldst"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j5yw3"]
-size = Vector2(138, 269)
+size = Vector2(138, 267)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kldst"]
 size = Vector2(313, 82)
@@ -47,7 +46,7 @@ autostart = true
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(300, 331.5)
+position = Vector2(300, 332.5)
 shape = SubResource("RectangleShape2D_j5yw3")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
@@ -77,9 +76,5 @@ shape = SubResource("RectangleShape2D_bf53h")
 [node name="CollisionShape2D8" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(114.75, 443)
 shape = SubResource("RectangleShape2D_71axn")
-
-[node name="Area2D" parent="." instance=ExtResource("4_kldst")]
-position = Vector2(570, 264)
-scale = Vector2(5, 5)
 
 [connection signal="timeout" from="Timer" to="." method="enemy_spawn"]

@@ -1,17 +1,17 @@
-extends CharacterBody2D
+extends Area2D
 
-@onready var front = $Front
-@onready var left = $Left
-@onready var right = $Right
+@onready var Right = $Right
+@onready var Left = $Left
+
+func _ready() -> void:
+	add_to_group("Enemies")
 
 func _process(delta: float) -> void:
 	var direction = Vector2.RIGHT.rotated(rotation - PI / 2)
-	position += direction * 1
-	move_and_slide()
+	position += direction * 4
 
-func _physics_process(delta):
-	if front.get_collider() is StaticBody2D:
-		if right.get_collider() is StaticBody2D && left.get_collider() is not StaticBody2D:
-			rotation -= PI / 2
-		else:
-			rotation += PI / 2
+func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	if Right.is_colliding():
+		rotation -= PI / 2
+	elif Left.is_colliding():
+		rotation += PI / 2

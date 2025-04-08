@@ -3,7 +3,7 @@ extends Area2D
 @onready var Right = $Right
 @onready var Left = $Left
 @onready var life = $Timer
-@onready var health = 2
+@onready var health = 20
 
 func _ready() -> void:
 	add_to_group("Enemies")

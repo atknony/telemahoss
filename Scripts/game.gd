@@ -7,14 +7,18 @@ extends Node2D
 @onready var turret2 = $Turret2
 @onready var wave_started = true
 @onready var label = $Label
-@onready var money = 50
+@onready var money = 3000
 
 func _process(delta: float) -> void:
 	label.text = str(money)
-	if Input.is_action_pressed("Upgrade1"):
-		upgrade_turret(turret1)
-	elif Input.is_action_pressed("Upgrade2"):
-		upgrade_turret(turret2)
+	if Input.is_action_just_pressed("Upgrade1"):
+		if money >= 1000:
+			money -= 1000
+			upgrade_turret(turret1)
+	elif Input.is_action_just_pressed("Upgrade2"):
+		if money >= 1000:
+			money -= 1000
+			upgrade_turret(turret2)
 
 func enemy_spawn() -> void:
 	if wave_started:

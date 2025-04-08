@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://b77kdm8e0qx48"]
+[gd_scene load_steps=17 format=3 uid="uid://b77kdm8e0qx48"]
 
 [ext_resource type="Script" uid="uid://d0ecyysn3ph1x" path="res://Scripts/game.gd" id="1_gl6un"]
 [ext_resource type="Texture2D" uid="uid://c7k25f7p02k0v" path="res://Assets/Dümenden/dümenMap.png" id="1_iukft"]
+[ext_resource type="PackedScene" uid="uid://7lrp8hgt4j6j" path="res://Scenes/Level2Turret.tscn" id="2_2irst"]
 [ext_resource type="PackedScene" uid="uid://xxwaps0biq8j" path="res://Scenes/Enemy.tscn" id="2_j5yw3"]
 [ext_resource type="PackedScene" uid="uid://dhwng3c36gswq" path="res://Scenes/Turret.tscn" id="4_kldst"]
 [ext_resource type="Script" uid="uid://crr1dcku3otfk" path="res://Scripts/turret_menu.gd" id="5_fgofq"]
@@ -35,6 +36,7 @@ size = Vector2(230.5, 117)
 [node name="Node2D" type="Node2D"]
 scale = Vector2(1.68, 1.68)
 script = ExtResource("1_gl6un")
+level_2_turret = ExtResource("2_2irst")
 enemy_scene = ExtResource("2_j5yw3")
 
 [node name="Label" type="Label" parent="."]
@@ -49,7 +51,7 @@ scale = Vector2(1.925, 1.62)
 texture = ExtResource("1_iukft")
 
 [node name="Enemy_Spawn_Time" type="Timer" parent="."]
-wait_time = 0.8
+wait_time = 0.3
 autostart = true
 
 [node name="Walls" type="StaticBody2D" parent="."]
@@ -95,37 +97,27 @@ position = Vector2(900, 370)
 scale = Vector2(5, 5)
 
 [node name="UI" type="CanvasLayer" parent="."]
+layer = 20
 
-[node name="TurretMenu" type="Control" parent="UI"]
+[node name="Control" type="Control" parent="UI"]
 layout_mode = 3
-anchor_left = 0.149
-anchor_top = 0.876
-anchor_right = 0.218
-anchor_bottom = 0.982
-offset_left = 60.92
-offset_top = 25.9199
-offset_right = -31.56
-offset_bottom = -48.5601
+anchor_left = 0.241
+anchor_top = 0.806
+anchor_right = 0.339
+anchor_bottom = 0.975
+offset_left = -0.720032
+offset_top = -22.48
+offset_right = -0.880005
 script = ExtResource("5_fgofq")
 
-[node name="TurretIcon" type="TextureRect" parent="UI/TurretMenu"]
+[node name="TextureRect" type="TextureRect" parent="UI/Control"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 6.249
-anchor_top = 19.562
-anchor_right = 12.582
-anchor_bottom = 22.68
-offset_left = -303.96
-offset_top = -808.48
-offset_right = -450.28
-offset_bottom = -832.2
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 0
+anchor_right = 0.213
+anchor_bottom = 0.195
+offset_right = -0.0440025
+offset_bottom = 0.0249977
 texture = ExtResource("6_2irst")
-expand_mode = 1
-stretch_mode = 5
 script = ExtResource("7_bf53h")
-tower_scene = ExtResource("4_kldst")
 
 [connection signal="timeout" from="Enemy_Spawn_Time" to="." method="enemy_spawn"]

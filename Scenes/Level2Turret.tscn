@@ -1,7 +1,5 @@
-[gd_scene load_steps=5 format=3 uid="uid://7lrp8hgt4j6j"]
+[gd_scene load_steps=3 format=3 uid="uid://o5o44msi5l2o"]
 
-[ext_resource type="Script" uid="uid://cvtn5xow03xjw" path="res://Scripts/level_2_turret.gd" id="1_6eepr"]
-[ext_resource type="PackedScene" uid="uid://c635bvptrdw0d" path="res://Scenes/bullet.tscn" id="2_5kxpg"]
 [ext_resource type="Texture2D" uid="uid://bjakvvax6o81d" path="res://Assets/Dümenden/turretRed.png" id="3_w7yxu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8m3st"]
@@ -9,8 +7,6 @@ radius = 6.25
 
 [node name="Area2D" type="Area2D"]
 scale = Vector2(5, 5)
-script = ExtResource("1_6eepr")
-bullet_scene = ExtResource("2_5kxpg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 3

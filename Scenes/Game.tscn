@@ -1,10 +1,73 @@
-[gd_scene load_steps=14 format=3 uid="uid://b77kdm8e0qx48"]
+[gd_scene load_steps=18 format=3 uid="uid://b77kdm8e0qx48"]
 
 [ext_resource type="Script" uid="uid://d0ecyysn3ph1x" path="res://Scripts/game.gd" id="1_gl6un"]
 [ext_resource type="Texture2D" uid="uid://c7k25f7p02k0v" path="res://Assets/Dümenden/dümenMap.png" id="1_iukft"]
-[ext_resource type="PackedScene" uid="uid://7lrp8hgt4j6j" path="res://Scenes/Level2Turret.tscn" id="2_2irst"]
+[ext_resource type="PackedScene" uid="uid://c635bvptrdw0d" path="res://Scenes/bullet.tscn" id="2_7lihs"]
 [ext_resource type="PackedScene" uid="uid://xxwaps0biq8j" path="res://Scenes/Enemy.tscn" id="2_j5yw3"]
+[ext_resource type="Texture2D" uid="uid://bjakvvax6o81d" path="res://Assets/Dümenden/turretRed.png" id="3_fgofq"]
 [ext_resource type="PackedScene" uid="uid://dhwng3c36gswq" path="res://Scenes/Turret.tscn" id="4_kldst"]
+
+[sub_resource type="GDScript" id="GDScript_2irst"]
+script/source = "extends Area2D
+
+@export var bullet_scene: PackedScene
+@export var fire_rate := 0.1  # saniyede 1 mermi
+
+var enemies_in_range: Array[Area2D] = []
+var fire_timer := 0.0
+
+func _process(delta):
+	fire_timer -= delta
+	var target = get_closest_enemy()
+
+	if fire_timer <= 0 and target:
+		shoot(target)
+		fire_timer = fire_rate
+	if target:
+		rotation = (target.global_position - global_position).angle() + PI / 2
+
+func get_closest_enemy() -> Area2D:
+	var closest: Area2D = null
+	var min_distance = INF
+
+	for enemy in enemies_in_range:
+		if is_instance_valid(enemy):
+			var dist = global_position.distance_to(enemy.global_position)
+			if dist < min_distance:
+				min_distance = dist
+				closest = enemy
+	return closest
+
+func shoot(enemy):
+	var bullet = bullet_scene.instantiate()
+	bullet.global_position = position
+	bullet.direction = (enemy.global_position - global_position).normalized()
+	get_tree().current_scene.add_child(bullet)
+
+func _on_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
+	if area.is_in_group(\"Enemies\") and !enemies_in_range.has(area):
+		enemies_in_range.append(area)
+
+func _on_area_shape_exited(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
+	if enemies_in_range.has(area):
+		enemies_in_range.erase(area)
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8m3st"]
+radius = 6.25
+
+[sub_resource type="PackedScene" id="PackedScene_bf53h"]
+_bundled = {
+"conn_count": 1,
+"conns": PackedInt32Array(0, 0, 10, 9, 2, 0, 0),
+"editable_instances": [],
+"names": PackedStringArray("Area2D", "scale", "script", "bullet_scene", "Sprite2D", "texture_filter", "texture", "CollisionShape2D", "shape", "_on_area_shape_entered", "area_shape_entered"),
+"node_count": 3,
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 0, 0, -1, 3, 1, 0, 2, 1, 3, 2, 0, 0, 0, 4, 4, -1, 2, 5, 3, 6, 4, 0, 0, 0, 7, 7, -1, 2, 1, 5, 8, 6, 0),
+"variants": [Vector2(5, 5), SubResource("GDScript_2irst"), ExtResource("2_7lihs"), 3, ExtResource("3_fgofq"), Vector2(8, 8), SubResource("CircleShape2D_8m3st")],
+"version": 3
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j5yw3"]
 size = Vector2(138, 269)
@@ -33,12 +96,12 @@ size = Vector2(230.5, 117)
 [node name="Node2D" type="Node2D"]
 scale = Vector2(1.68, 1.68)
 script = ExtResource("1_gl6un")
-level_2_turret = ExtResource("2_2irst")
+level_2_turret = SubResource("PackedScene_bf53h")
 enemy_scene = ExtResource("2_j5yw3")
 
-[node name="Label" type="Label" parent="."]
-offset_left = 1040.48
-offset_right = 1152.48
+[node name="Balance" type="Label" parent="."]
+offset_left = 768.0
+offset_right = 1152.0
 offset_bottom = 76.0
 theme_override_font_sizes/font_size = 50
 
@@ -50,7 +113,6 @@ texture = ExtResource("1_iukft")
 
 [node name="Enemy_Spawn_Time" type="Timer" parent="."]
 wait_time = 0.3
-autostart = true
 
 [node name="Walls" type="StaticBody2D" parent="."]
 
@@ -93,5 +155,12 @@ scale = Vector2(5, 5)
 [node name="Turret2" parent="." instance=ExtResource("4_kldst")]
 position = Vector2(900, 370)
 scale = Vector2(5, 5)
+
+[node name="Wave" type="Label" parent="."]
+offset_left = 69.0
+offset_top = 558.0
+offset_right = 409.0
+offset_bottom = 627.0
+theme_override_font_sizes/font_size = 50
 
 [connection signal="timeout" from="Enemy_Spawn_Time" to="." method="enemy_spawn"]

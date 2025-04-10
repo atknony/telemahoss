@@ -9,11 +9,11 @@
 scale = Vector2(0.4, 0.4)
 script = ExtResource("1_oduel")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 3
 texture = ExtResource("1_xjght")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_xjght")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

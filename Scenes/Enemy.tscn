@@ -11,11 +11,11 @@ rotation = 1.5708
 scale = Vector2(5, 5)
 script = ExtResource("1_wovta")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2(-1.87397e-06, -2.15)
 shape = SubResource("RectangleShape2D_m1htj")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 3
 texture = ExtResource("1_m1htj")
 
@@ -29,9 +29,9 @@ rotation = -1.5708
 scale = Vector2(2, 2)
 target_position = Vector2(-2.89599e-05, -8)
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Dequeue" type="Timer" parent="."]
 wait_time = 9.0
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Dequeue" to="." method="_on_timer_timeout"]

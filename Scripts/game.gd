@@ -3,13 +3,22 @@ extends Node2D
 @export var level_2_turret : PackedScene
 @export var enemy_scene : PackedScene
 
-@onready var wave_level = 0
+@onready var label = $Balance
 @onready var Wave = $Wave
 @onready var turret1 = $Turret1
 @onready var turret2 = $Turret2
+@onready var turret3 = $Turret3
+@onready var base = $Base
+
+
 @onready var wave_started = false
-@onready var label = $Balance
+
+@onready var wave_level = 0
 @onready var money = 10000
+@onready var base_health = 25
+
+func _ready() -> void:
+	base.add_to_group("Base")
 
 func _process(delta: float) -> void:
 	label.text = "Balance: " + str(money)
@@ -22,6 +31,10 @@ func _process(delta: float) -> void:
 		if money >= 1000:
 			money -= 1000
 			upgrade_turret(turret2)
+	elif Input.is_action_just_pressed("Upgrade3"):
+		if money >= 1000:
+			money -= 1000
+			upgrade_turret(turret3)
 	elif Input.is_action_just_pressed("NextWave") && wave_started == false:
 		wave_started = true
 		wave_level += 1
@@ -39,3 +52,12 @@ func enemy_spawn() -> void:
 
 func upgrade_turret(turret_scene):
 	turret_scene.fire_rate /= 1.1
+
+func _on_base_area_shape_entered(area: Area2D) -> void:
+	if area.is_in_group("Enemies"):
+		base_health -= 1
+		if base_health <= 0:
+			stop_all()
+
+func stop_all():
+	get_tree().paused = true

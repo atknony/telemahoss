@@ -1,7 +1,7 @@
 extends Area2D
 
 @export var bullet_scene: PackedScene
-@export var fire_rate := 0.5  # saniyede 1 mermi
+@export var fire_rate := 0.5
 
 var enemies_in_range: Array[Area2D] = []
 var fire_timer := 0.0

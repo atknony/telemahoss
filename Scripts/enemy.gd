@@ -2,7 +2,7 @@ extends Area2D
 
 @onready var Right = $Right
 @onready var Left = $Left
-@onready var life = $Timer
+@onready var Dequeue = $Dequeue
 @onready var health = 3
 
 func _ready() -> void:
@@ -18,7 +18,6 @@ func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, 
 	elif Left.is_colliding():
 		rotation += PI / 2
 
-
 func _on_timer_timeout() -> void:
 	queue_free()
 
@@ -28,3 +27,5 @@ func _on_area_entered(area: Area2D) -> void:
 		if health <= 0:
 			get_parent().money += 10
 			queue_free()
+	elif (area.is_in_group("Base")):
+		queue_free()

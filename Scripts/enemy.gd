@@ -3,7 +3,8 @@ extends Area2D
 @onready var Right = $Right
 @onready var Left = $Left
 @onready var Dequeue = $Dequeue
-@onready var health = 3
+
+@onready var health = 2
 
 func _ready() -> void:
 	add_to_group("Enemies")
@@ -25,7 +26,7 @@ func _on_area_entered(area: Area2D) -> void:
 	if (area.is_in_group("Bullet")):
 		health -= 1
 		if health <= 0:
-			get_parent().money += 10
+			get_parent().money += 150
 			queue_free()
 	elif (area.is_in_group("Base")):
 		queue_free()

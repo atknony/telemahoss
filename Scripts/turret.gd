@@ -39,5 +39,5 @@ func _on_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, 
 		enemies_in_range.append(area)
 
 func _on_area_shape_exited(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
-	if enemies_in_range.has(area):
+	if area.is_in_group("Enemies"):
 		enemies_in_range.erase(area)

@@ -1,74 +1,13 @@
-[gd_scene load_steps=20 format=3 uid="uid://b77kdm8e0qx48"]
+[gd_scene load_steps=18 format=3 uid="uid://b77kdm8e0qx48"]
 
 [ext_resource type="Script" uid="uid://d0ecyysn3ph1x" path="res://Scripts/game.gd" id="1_gl6un"]
 [ext_resource type="Texture2D" uid="uid://c7k25f7p02k0v" path="res://Assets/Dümenden/dümenMap.png" id="1_iukft"]
-[ext_resource type="PackedScene" uid="uid://c635bvptrdw0d" path="res://Scenes/bullet.tscn" id="2_7lihs"]
 [ext_resource type="PackedScene" uid="uid://xxwaps0biq8j" path="res://Scenes/Enemy.tscn" id="2_j5yw3"]
 [ext_resource type="Texture2D" uid="uid://bjakvvax6o81d" path="res://Assets/Dümenden/turretRed.png" id="3_fgofq"]
 [ext_resource type="PackedScene" uid="uid://dhwng3c36gswq" path="res://Scenes/Turret.tscn" id="4_kldst"]
 [ext_resource type="Texture2D" uid="uid://dyc5h2tsbq228" path="res://Assets/Dümenden/Base.jpeg" id="7_fgofq"]
-
-[sub_resource type="GDScript" id="GDScript_2irst"]
-script/source = "extends Area2D
-
-@export var bullet_scene: PackedScene
-@export var fire_rate := 0.1  # saniyede 1 mermi
-
-var enemies_in_range: Array[Area2D] = []
-var fire_timer := 0.0
-
-func _process(delta):
-	fire_timer -= delta
-	var target = get_closest_enemy()
-
-	if fire_timer <= 0 and target:
-		shoot(target)
-		fire_timer = fire_rate
-	if target:
-		rotation = (target.global_position - global_position).angle() + PI / 2
-
-func get_closest_enemy() -> Area2D:
-	var closest: Area2D = null
-	var min_distance = INF
-
-	for enemy in enemies_in_range:
-		if is_instance_valid(enemy):
-			var dist = global_position.distance_to(enemy.global_position)
-			if dist < min_distance:
-				min_distance = dist
-				closest = enemy
-	return closest
-
-func shoot(enemy):
-	var bullet = bullet_scene.instantiate()
-	bullet.global_position = position
-	bullet.direction = (enemy.global_position - global_position).normalized()
-	get_tree().current_scene.add_child(bullet)
-
-func _on_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
-	if area.is_in_group(\"Enemies\") and !enemies_in_range.has(area):
-		enemies_in_range.append(area)
-
-func _on_area_shape_exited(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
-	if enemies_in_range.has(area):
-		enemies_in_range.erase(area)
-"
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_8m3st"]
-radius = 6.25
-
-[sub_resource type="PackedScene" id="PackedScene_bf53h"]
-_bundled = {
-"conn_count": 1,
-"conns": PackedInt32Array(0, 0, 10, 9, 2, 0, 0),
-"editable_instances": [],
-"names": PackedStringArray("Area2D", "scale", "script", "bullet_scene", "Sprite2D", "texture_filter", "texture", "CollisionShape2D", "shape", "_on_area_shape_entered", "area_shape_entered"),
-"node_count": 3,
-"node_paths": [],
-"nodes": PackedInt32Array(-1, -1, 0, 0, -1, 3, 1, 0, 2, 1, 3, 2, 0, 0, 0, 4, 4, -1, 2, 5, 3, 6, 4, 0, 0, 0, 7, 7, -1, 2, 1, 5, 8, 6, 0),
-"variants": [Vector2(5, 5), SubResource("GDScript_2irst"), ExtResource("2_7lihs"), 3, ExtResource("3_fgofq"), Vector2(8, 8), SubResource("CircleShape2D_8m3st")],
-"version": 3
-}
+[ext_resource type="Script" uid="uid://c6ufqvs8aen2n" path="res://Scripts/turret_slot.gd" id="8_2irst"]
+[ext_resource type="Script" uid="uid://dtkfgr5t7wxh1" path="res://Scripts/turret_buy.gd" id="9_bf53h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j5yw3"]
 size = Vector2(138, 269)
@@ -100,7 +39,6 @@ size = Vector2(59.524, 72.0238)
 [node name="Main Scene" type="Node2D"]
 scale = Vector2(1.68, 1.68)
 script = ExtResource("1_gl6un")
-level_2_turret = SubResource("PackedScene_bf53h")
 enemy_scene = ExtResource("2_j5yw3")
 
 [node name="Balance" type="Label" parent="."]
@@ -163,7 +101,6 @@ theme_override_font_sizes/font_size = 50
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Base"]
 position = Vector2(1125.6, 290.774)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_dahhg")
 
 [node name="Sprite2D" type="Sprite2D" parent="Base"]
@@ -171,14 +108,647 @@ position = Vector2(1126.19, 290.774)
 scale = Vector2(0.0429075, 0.0534411)
 texture = ExtResource("7_fgofq")
 
-[node name="Turret1" parent="." instance=ExtResource("4_kldst")]
-position = Vector2(576.19, 274.405)
+[node name="Turret_Buy" type="TextureRect" parent="."]
+texture_filter = 3
+offset_left = 916.667
+offset_top = 73.2143
+offset_right = 1012.67
+offset_bottom = 166.214
+texture = ExtResource("3_fgofq")
+script = ExtResource("9_bf53h")
+turret_scene = ExtResource("4_kldst")
 
-[node name="Turret2" parent="." instance=ExtResource("4_kldst")]
-position = Vector2(950.595, 369.643)
+[node name="Turret Slots" type="Node2D" parent="."]
 
-[node name="Turret3" parent="." instance=ExtResource("4_kldst")]
-position = Vector2(109.524, 272.024)
+[node name="TurretSlot" type="Panel" parent="Turret Slots"]
+offset_left = 465.0
+offset_top = 313.0
+offset_right = 531.0
+offset_bottom = 379.0
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot3" type="Panel" parent="Turret Slots"]
+offset_left = 538.69
+offset_top = 313.69
+offset_right = 604.69
+offset_bottom = 379.69
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot4" type="Panel" parent="Turret Slots"]
+offset_left = 620.833
+offset_top = 244.048
+offset_right = 686.833
+offset_bottom = 310.048
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot73" type="Panel" parent="Turret Slots"]
+offset_left = 620.238
+offset_top = 169.643
+offset_right = 686.238
+offset_bottom = 235.643
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot2" type="Panel" parent="Turret Slots"]
+offset_left = 623.214
+offset_top = 316.071
+offset_right = 689.214
+offset_bottom = 382.071
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot5" type="Panel" parent="Turret Slots"]
+offset_left = 789.881
+offset_top = 341.072
+offset_right = 855.881
+offset_bottom = 407.072
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot7" type="Panel" parent="Turret Slots"]
+offset_left = 860.714
+offset_top = 341.072
+offset_right = 926.714
+offset_bottom = 407.072
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot8" type="Panel" parent="Turret Slots"]
+offset_left = 932.143
+offset_top = 341.667
+offset_right = 998.143
+offset_bottom = 407.667
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot12" type="Panel" parent="Turret Slots"]
+offset_left = 1003.57
+offset_top = 342.857
+offset_right = 1069.57
+offset_bottom = 408.857
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot13" type="Panel" parent="Turret Slots"]
+offset_left = 1075.6
+offset_top = 342.857
+offset_right = 1141.6
+offset_bottom = 408.857
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot14" type="Panel" parent="Turret Slots"]
+offset_left = 1002.98
+offset_top = 411.905
+offset_right = 1068.98
+offset_bottom = 477.905
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot15" type="Panel" parent="Turret Slots"]
+offset_left = 1076.19
+offset_top = 411.905
+offset_right = 1142.19
+offset_bottom = 477.905
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot9" type="Panel" parent="Turret Slots"]
+offset_left = 789.881
+offset_top = 411.31
+offset_right = 855.881
+offset_bottom = 477.31
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot10" type="Panel" parent="Turret Slots"]
+offset_left = 860.714
+offset_top = 411.31
+offset_right = 926.714
+offset_bottom = 477.31
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot11" type="Panel" parent="Turret Slots"]
+offset_left = 932.143
+offset_top = 411.905
+offset_right = 998.143
+offset_bottom = 477.905
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot16" type="Panel" parent="Turret Slots"]
+offset_left = 1002.98
+offset_top = 483.333
+offset_right = 1068.98
+offset_bottom = 549.333
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot17" type="Panel" parent="Turret Slots"]
+offset_left = 1076.19
+offset_top = 483.333
+offset_right = 1142.19
+offset_bottom = 549.333
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot18" type="Panel" parent="Turret Slots"]
+offset_left = 789.881
+offset_top = 482.738
+offset_right = 855.881
+offset_bottom = 548.738
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot19" type="Panel" parent="Turret Slots"]
+offset_left = 860.714
+offset_top = 482.738
+offset_right = 926.714
+offset_bottom = 548.738
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot20" type="Panel" parent="Turret Slots"]
+offset_left = 932.143
+offset_top = 483.333
+offset_right = 998.143
+offset_bottom = 549.333
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot21" type="Panel" parent="Turret Slots"]
+offset_left = 1002.98
+offset_top = 555.357
+offset_right = 1068.98
+offset_bottom = 621.357
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot22" type="Panel" parent="Turret Slots"]
+offset_left = 1076.19
+offset_top = 555.357
+offset_right = 1142.19
+offset_bottom = 621.357
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot23" type="Panel" parent="Turret Slots"]
+offset_left = 789.881
+offset_top = 554.762
+offset_right = 855.881
+offset_bottom = 620.762
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot26" type="Panel" parent="Turret Slots"]
+offset_left = 701.19
+offset_top = 461.905
+offset_right = 767.19
+offset_bottom = 527.905
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot27" type="Panel" parent="Turret Slots"]
+offset_left = 701.19
+offset_top = 533.929
+offset_right = 767.19
+offset_bottom = 599.929
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot28" type="Panel" parent="Turret Slots"]
+offset_left = 627.976
+offset_top = 461.905
+offset_right = 693.976
+offset_bottom = 527.905
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot29" type="Panel" parent="Turret Slots"]
+offset_left = 627.976
+offset_top = 533.929
+offset_right = 693.976
+offset_bottom = 599.929
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot30" type="Panel" parent="Turret Slots"]
+offset_left = 556.548
+offset_top = 462.5
+offset_right = 622.548
+offset_bottom = 528.5
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot31" type="Panel" parent="Turret Slots"]
+offset_left = 556.548
+offset_top = 534.524
+offset_right = 622.548
+offset_bottom = 600.524
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot32" type="Panel" parent="Turret Slots"]
+offset_left = 483.929
+offset_top = 462.5
+offset_right = 549.929
+offset_bottom = 528.5
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot33" type="Panel" parent="Turret Slots"]
+offset_left = 483.929
+offset_top = 534.524
+offset_right = 549.929
+offset_bottom = 600.524
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot34" type="Panel" parent="Turret Slots"]
+offset_left = 410.119
+offset_top = 463.095
+offset_right = 476.119
+offset_bottom = 529.095
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot35" type="Panel" parent="Turret Slots"]
+offset_left = 410.119
+offset_top = 535.119
+offset_right = 476.119
+offset_bottom = 601.119
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot36" type="Panel" parent="Turret Slots"]
+offset_left = 309.524
+offset_top = 491.071
+offset_right = 375.524
+offset_bottom = 557.071
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot37" type="Panel" parent="Turret Slots"]
+offset_left = 309.524
+offset_top = 563.095
+offset_right = 375.524
+offset_bottom = 629.095
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot38" type="Panel" parent="Turret Slots"]
+offset_left = 309.524
+offset_top = 347.619
+offset_right = 375.524
+offset_bottom = 413.619
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot39" type="Panel" parent="Turret Slots"]
+offset_left = 309.524
+offset_top = 419.643
+offset_right = 375.524
+offset_bottom = 485.643
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot40" type="Panel" parent="Turret Slots"]
+offset_left = 309.524
+offset_top = 205.952
+offset_right = 375.524
+offset_bottom = 271.952
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot41" type="Panel" parent="Turret Slots"]
+offset_left = 309.524
+offset_top = 277.976
+offset_right = 375.524
+offset_bottom = 343.976
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot42" type="Panel" parent="Turret Slots"]
+offset_left = 238.095
+offset_top = 490.476
+offset_right = 304.095
+offset_bottom = 556.476
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot43" type="Panel" parent="Turret Slots"]
+offset_left = 238.095
+offset_top = 562.5
+offset_right = 304.095
+offset_bottom = 628.5
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot44" type="Panel" parent="Turret Slots"]
+offset_left = 238.095
+offset_top = 347.024
+offset_right = 304.095
+offset_bottom = 413.024
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot45" type="Panel" parent="Turret Slots"]
+offset_left = 238.095
+offset_top = 419.048
+offset_right = 304.095
+offset_bottom = 485.048
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot48" type="Panel" parent="Turret Slots"]
+offset_left = 151.19
+offset_top = 463.095
+offset_right = 217.19
+offset_bottom = 529.095
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot49" type="Panel" parent="Turret Slots"]
+offset_left = 151.19
+offset_top = 535.119
+offset_right = 217.19
+offset_bottom = 601.119
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot50" type="Panel" parent="Turret Slots"]
+offset_left = 151.191
+offset_top = 391.667
+offset_right = 217.191
+offset_bottom = 457.667
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot51" type="Panel" parent="Turret Slots"]
+offset_left = 10.119
+offset_top = 463.69
+offset_right = 76.119
+offset_bottom = 529.69
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot52" type="Panel" parent="Turret Slots"]
+offset_left = 10.119
+offset_top = 535.714
+offset_right = 76.119
+offset_bottom = 601.714
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot53" type="Panel" parent="Turret Slots"]
+offset_left = 10.1191
+offset_top = 392.262
+offset_right = 76.1191
+offset_bottom = 458.262
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot54" type="Panel" parent="Turret Slots"]
+offset_left = 79.7619
+offset_top = 463.69
+offset_right = 145.762
+offset_bottom = 529.69
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot55" type="Panel" parent="Turret Slots"]
+offset_left = 79.7619
+offset_top = 535.714
+offset_right = 145.762
+offset_bottom = 601.714
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot56" type="Panel" parent="Turret Slots"]
+offset_left = 79.7619
+offset_top = 392.262
+offset_right = 145.762
+offset_bottom = 458.262
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot46" type="Panel" parent="Turret Slots"]
+offset_left = 238.095
+offset_top = 205.357
+offset_right = 304.095
+offset_bottom = 271.357
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot47" type="Panel" parent="Turret Slots"]
+offset_left = 238.095
+offset_top = 277.381
+offset_right = 304.095
+offset_bottom = 343.381
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot69" type="Panel" parent="Turret Slots"]
+offset_left = 537.5
+offset_top = 169.643
+offset_right = 603.5
+offset_bottom = 235.643
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot70" type="Panel" parent="Turret Slots"]
+offset_left = 537.5
+offset_top = 241.667
+offset_right = 603.5
+offset_bottom = 307.667
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot71" type="Panel" parent="Turret Slots"]
+offset_left = 466.071
+offset_top = 169.048
+offset_right = 532.071
+offset_bottom = 235.048
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot72" type="Panel" parent="Turret Slots"]
+offset_left = 466.071
+offset_top = 241.072
+offset_right = 532.071
+offset_bottom = 307.072
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot74" type="Panel" parent="Turret Slots"]
+offset_left = 537.5
+offset_top = 26.1905
+offset_right = 603.5
+offset_bottom = 92.1904
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot75" type="Panel" parent="Turret Slots"]
+offset_left = 537.5
+offset_top = 98.2143
+offset_right = 603.5
+offset_bottom = 164.214
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot76" type="Panel" parent="Turret Slots"]
+offset_left = 466.071
+offset_top = 25.5952
+offset_right = 532.071
+offset_bottom = 91.5952
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot77" type="Panel" parent="Turret Slots"]
+offset_left = 466.071
+offset_top = 97.6191
+offset_right = 532.071
+offset_bottom = 163.619
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot78" type="Panel" parent="Turret Slots"]
+offset_left = 687.5
+offset_top = 26.1905
+offset_right = 753.5
+offset_bottom = 92.1904
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot79" type="Panel" parent="Turret Slots"]
+offset_left = 687.5
+offset_top = 98.2143
+offset_right = 753.5
+offset_bottom = 164.214
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot80" type="Panel" parent="Turret Slots"]
+offset_left = 616.071
+offset_top = 25.5952
+offset_right = 682.071
+offset_bottom = 91.5952
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot81" type="Panel" parent="Turret Slots"]
+offset_left = 616.071
+offset_top = 97.6191
+offset_right = 682.071
+offset_bottom = 163.619
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot82" type="Panel" parent="Turret Slots"]
+offset_left = 833.333
+offset_top = 25.5952
+offset_right = 899.333
+offset_bottom = 91.5952
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot83" type="Panel" parent="Turret Slots"]
+offset_left = 833.333
+offset_top = 97.6191
+offset_right = 899.333
+offset_bottom = 163.619
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot84" type="Panel" parent="Turret Slots"]
+offset_left = 761.905
+offset_top = 25.0
+offset_right = 827.905
+offset_bottom = 90.9999
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot85" type="Panel" parent="Turret Slots"]
+offset_left = 761.905
+offset_top = 97.0239
+offset_right = 827.905
+offset_bottom = 163.024
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot86" type="Panel" parent="Turret Slots"]
+offset_left = 845.238
+offset_top = 182.143
+offset_right = 911.238
+offset_bottom = 248.143
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot87" type="Panel" parent="Turret Slots"]
+offset_left = 773.81
+offset_top = 181.548
+offset_right = 839.81
+offset_bottom = 247.548
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot88" type="Panel" parent="Turret Slots"]
+offset_left = 990.476
+offset_top = 182.738
+offset_right = 1056.48
+offset_bottom = 248.738
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot90" type="Panel" parent="Turret Slots"]
+offset_left = 1069.64
+offset_top = 184.524
+offset_right = 1135.64
+offset_bottom = 250.524
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot89" type="Panel" parent="Turret Slots"]
+offset_left = 919.048
+offset_top = 182.143
+offset_right = 985.048
+offset_bottom = 248.143
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot57" type="Panel" parent="Turret Slots"]
+offset_left = 79.1667
+offset_top = 180.357
+offset_right = 145.167
+offset_bottom = 246.357
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot58" type="Panel" parent="Turret Slots"]
+offset_left = 79.1667
+offset_top = 252.381
+offset_right = 145.167
+offset_bottom = 318.381
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot59" type="Panel" parent="Turret Slots"]
+offset_left = 7.7381
+offset_top = 179.762
+offset_right = 73.7381
+offset_bottom = 245.762
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot60" type="Panel" parent="Turret Slots"]
+offset_left = 7.7381
+offset_top = 251.786
+offset_right = 73.7381
+offset_bottom = 317.786
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot61" type="Panel" parent="Turret Slots"]
+offset_left = 79.1667
+offset_top = 36.3095
+offset_right = 145.167
+offset_bottom = 102.309
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot62" type="Panel" parent="Turret Slots"]
+offset_left = 79.1667
+offset_top = 108.333
+offset_right = 145.167
+offset_bottom = 174.333
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot63" type="Panel" parent="Turret Slots"]
+offset_left = 7.7381
+offset_top = 35.7143
+offset_right = 73.7381
+offset_bottom = 101.714
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot65" type="Panel" parent="Turret Slots"]
+offset_left = 230.357
+offset_top = 53.5714
+offset_right = 296.357
+offset_bottom = 119.571
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot66" type="Panel" parent="Turret Slots"]
+offset_left = 158.929
+offset_top = 52.9762
+offset_right = 224.929
+offset_bottom = 118.976
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot67" type="Panel" parent="Turret Slots"]
+offset_left = 376.786
+offset_top = 55.9524
+offset_right = 442.786
+offset_bottom = 121.952
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot68" type="Panel" parent="Turret Slots"]
+offset_left = 305.357
+offset_top = 55.3571
+offset_right = 371.357
+offset_bottom = 121.357
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot64" type="Panel" parent="Turret Slots"]
+offset_left = 7.7381
+offset_top = 107.738
+offset_right = 73.7381
+offset_bottom = 173.738
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot24" type="Panel" parent="Turret Slots"]
+offset_left = 860.714
+offset_top = 554.762
+offset_right = 926.714
+offset_bottom = 620.762
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot25" type="Panel" parent="Turret Slots"]
+offset_left = 932.143
+offset_top = 555.357
+offset_right = 998.143
+offset_bottom = 621.357
+script = ExtResource("8_2irst")
+
+[node name="TurretSlot6" type="Panel" parent="Turret Slots"]
+offset_left = 698.214
+offset_top = 180.952
+offset_right = 764.214
+offset_bottom = 246.952
+script = ExtResource("8_2irst")
 
 [connection signal="timeout" from="Enemy_Spawn_Time" to="." method="enemy_spawn"]
 [connection signal="area_shape_entered" from="Base" to="." method="_on_base_area_shape_entered"]

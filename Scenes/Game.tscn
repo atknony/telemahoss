@@ -54,7 +54,7 @@ position = Vector2(575.5, 325)
 scale = Vector2(1.925, 1.62)
 texture = ExtResource("1_iukft")
 
-[node name="Enemy_Spawn_Time" type="Timer" parent="."]
+[node name="Enemy_Spawn_Timer" type="Timer" parent="."]
 wait_time = 0.3
 
 [node name="Walls" type="StaticBody2D" parent="."]
@@ -674,9 +674,6 @@ offset_right = 764.214
 offset_bottom = 246.952
 script = ExtResource("8_2irst")
 
-[node name="Turret" parent="." instance=ExtResource("4_kldst")]
-position = Vector2(928.571, 491.071)
-
 [node name="NextWave" type="Panel" parent="."]
 offset_left = 26.381
 offset_top = 580.071
@@ -696,6 +693,6 @@ offset_right = 201.786
 offset_bottom = 577.047
 theme_override_font_sizes/font_size = 50
 
-[connection signal="timeout" from="Enemy_Spawn_Time" to="." method="enemy_spawn"]
+[connection signal="timeout" from="Enemy_Spawn_Timer" to="." method="enemy_spawn"]
 [connection signal="area_shape_entered" from="Base" to="." method="_on_base_area_shape_entered"]
 [connection signal="gui_input" from="NextWave" to="." method="_on_next_wave_gui_input"]

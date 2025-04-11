@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b77kdm8e0qx48"]
+[gd_scene load_steps=19 format=3 uid="uid://b77kdm8e0qx48"]
 
 [ext_resource type="Script" uid="uid://d0ecyysn3ph1x" path="res://Scripts/game.gd" id="1_gl6un"]
 [ext_resource type="Texture2D" uid="uid://c7k25f7p02k0v" path="res://Assets/Dümenden/dümenMap.png" id="1_iukft"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dhwng3c36gswq" path="res://Scenes/Turret.tscn" id="4_kldst"]
 [ext_resource type="Texture2D" uid="uid://dyc5h2tsbq228" path="res://Assets/Dümenden/Base.jpeg" id="7_fgofq"]
 [ext_resource type="Script" uid="uid://c6ufqvs8aen2n" path="res://Scripts/turret_slot.gd" id="8_2irst"]
+[ext_resource type="Texture2D" uid="uid://710ld5xmsdby" path="res://Assets/Dümenden/NextWave.png" id="9_71axn"]
 [ext_resource type="Script" uid="uid://dtkfgr5t7wxh1" path="res://Scripts/turret_buy.gd" id="9_bf53h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j5yw3"]
@@ -677,16 +678,22 @@ script = ExtResource("8_2irst")
 position = Vector2(928.571, 491.071)
 
 [node name="NextWave" type="Panel" parent="."]
-offset_left = 24.0
-offset_top = 564.0
-offset_right = 200.0
-offset_bottom = 631.0
+offset_left = 26.381
+offset_top = 580.071
+offset_right = 202.381
+offset_bottom = 647.071
+
+[node name="Sprite2D" type="Sprite2D" parent="NextWave"]
+texture_filter = 3
+position = Vector2(106.357, 68.7382)
+scale = Vector2(3, 3)
+texture = ExtResource("9_71axn")
 
 [node name="Wave" type="Label" parent="."]
-offset_left = 25.0
-offset_top = 564.0
-offset_right = 200.0
-offset_bottom = 633.0
+offset_left = 26.7857
+offset_top = 508.047
+offset_right = 201.786
+offset_bottom = 577.047
 theme_override_font_sizes/font_size = 50
 
 [connection signal="timeout" from="Enemy_Spawn_Time" to="." method="enemy_spawn"]

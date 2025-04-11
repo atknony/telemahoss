@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b77kdm8e0qx48"]
+[gd_scene load_steps=24 format=3 uid="uid://b77kdm8e0qx48"]
 
 [ext_resource type="Script" uid="uid://d0ecyysn3ph1x" path="res://Scripts/game.gd" id="1_gl6un"]
 [ext_resource type="Texture2D" uid="uid://c7k25f7p02k0v" path="res://Assets/Dümenden/dümenMap.png" id="1_iukft"]
@@ -10,29 +10,57 @@
 [ext_resource type="Texture2D" uid="uid://710ld5xmsdby" path="res://Assets/Dümenden/NextWave.png" id="9_71axn"]
 [ext_resource type="Script" uid="uid://dtkfgr5t7wxh1" path="res://Scripts/turret_buy.gd" id="9_bf53h"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_j5yw3"]
-size = Vector2(138, 269)
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_bf53h"]
+a = Vector2(152.976, 326.19)
+b = Vector2(-2.97619, 325.595)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kldst"]
-size = Vector2(313, 82)
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_71axn"]
+a = Vector2(220.238, 326.19)
+b = Vector2(-9.52381, 326.19)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b2bpf"]
-size = Vector2(225, 248)
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_dahhg"]
+a = Vector2(207.738, 162.5)
+b = Vector2(207.738, 354.167)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7lihs"]
-size = Vector2(406, 74.75)
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_3so38"]
+a = Vector2(206.548, 44.0476)
+b = Vector2(207.738, 354.167)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fgofq"]
-size = Vector2(380, 130.5)
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_3cx6b"]
+a = Vector2(207.738, 44.0476)
+b = Vector2(467.857, 44.0476)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2irst"]
-size = Vector2(463, 127)
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_wxwew"]
+a = Vector2(468.452, -186.905)
+b = Vector2(467.857, 44.0476)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bf53h"]
-size = Vector2(149, 278.5)
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_acvyw"]
+a = Vector2(468.452, -186.905)
+b = Vector2(334.524, -186.31)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_71axn"]
-size = Vector2(230.5, 117)
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_alh3a"]
+a = Vector2(335.119, -589.286)
+b = Vector2(334.524, -186.31)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_4q8tf"]
+a = Vector2(274.405, 125)
+b = Vector2(274.405, 275)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_x3xnh"]
+a = Vector2(272.619, 123.214)
+b = Vector2(533.333, 122.024)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_8r6kd"]
+a = Vector2(531.548, -262.5)
+b = Vector2(531.548, 122.024)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_tfod6"]
+a = Vector2(531.548, -262.5)
+b = Vector2(404.167, -262.5)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_rajel"]
+a = Vector2(404.167, -588.095)
+b = Vector2(404.167, -262.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dahhg"]
 size = Vector2(59.524, 72.0238)
@@ -60,36 +88,70 @@ wait_time = 0.3
 [node name="Walls" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
-position = Vector2(300, 331.5)
-shape = SubResource("RectangleShape2D_j5yw3")
+position = Vector2(0, -1.19048)
+shape = SubResource("SegmentShape2D_bf53h")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
-position = Vector2(307.5, 86)
-shape = SubResource("RectangleShape2D_kldst")
+position = Vector2(5.95238, 58.9286)
+shape = SubResource("SegmentShape2D_71axn")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
-position = Vector2(575.5, 256)
-shape = SubResource("RectangleShape2D_b2bpf")
+position = Vector2(20.2381, 32.7381)
+shape = SubResource("SegmentShape2D_dahhg")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Walls"]
-position = Vector2(572, 496.375)
-shape = SubResource("RectangleShape2D_7lihs")
+position = Vector2(-55.9524, -30.9524)
+shape = SubResource("SegmentShape2D_dahhg")
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="Walls"]
-position = Vector2(967, 394)
-shape = SubResource("RectangleShape2D_fgofq")
+position = Vector2(504.762, -77.9762)
+rotation = 1.5708
+shape = SubResource("SegmentShape2D_3so38")
 
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="Walls"]
-position = Vector2(921, 188)
-shape = SubResource("RectangleShape2D_2irst")
+position = Vector2(504.762, -77.9762)
+rotation = 1.5708
+shape = SubResource("SegmentShape2D_3cx6b")
+
+[node name="CollisionShape2D12" type="CollisionShape2D" parent="Walls"]
+position = Vector2(504.762, -77.9762)
+rotation = 1.5708
+shape = SubResource("SegmentShape2D_wxwew")
+
+[node name="CollisionShape2D13" type="CollisionShape2D" parent="Walls"]
+position = Vector2(504.762, -77.9762)
+rotation = 1.5708
+shape = SubResource("SegmentShape2D_acvyw")
+
+[node name="CollisionShape2D14" type="CollisionShape2D" parent="Walls"]
+position = Vector2(504.762, -75.5953)
+rotation = 1.5708
+shape = SubResource("SegmentShape2D_alh3a")
 
 [node name="CollisionShape2D7" type="CollisionShape2D" parent="Walls"]
-position = Vector2(77, 184.25)
-shape = SubResource("RectangleShape2D_bf53h")
+position = Vector2(505.357, -79.7619)
+rotation = 1.5708
+shape = SubResource("SegmentShape2D_4q8tf")
 
 [node name="CollisionShape2D8" type="CollisionShape2D" parent="Walls"]
-position = Vector2(114.75, 443)
-shape = SubResource("RectangleShape2D_71axn")
+position = Vector2(505.357, -79.7619)
+rotation = 1.5708
+shape = SubResource("SegmentShape2D_x3xnh")
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="Walls"]
+position = Vector2(505.357, -79.7619)
+rotation = 1.5708
+shape = SubResource("SegmentShape2D_8r6kd")
+
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="Walls"]
+position = Vector2(505.357, -79.7619)
+rotation = 1.5708
+shape = SubResource("SegmentShape2D_tfod6")
+
+[node name="CollisionShape2D11" type="CollisionShape2D" parent="Walls"]
+position = Vector2(505.357, -79.7619)
+rotation = 1.5708
+shape = SubResource("SegmentShape2D_rajel")
 
 [node name="Base" type="Area2D" parent="."]
 
@@ -692,6 +754,7 @@ offset_top = 508.047
 offset_right = 201.786
 offset_bottom = 577.047
 theme_override_font_sizes/font_size = 50
+text = "Wave:"
 
 [connection signal="timeout" from="Enemy_Spawn_Timer" to="." method="enemy_spawn"]
 [connection signal="area_shape_entered" from="Base" to="." method="_on_base_area_shape_entered"]

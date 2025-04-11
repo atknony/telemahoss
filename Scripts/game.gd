@@ -13,7 +13,7 @@ var selected_turret_scene: PackedScene = null
 
 @onready var wave_level = 0
 @onready var money = 15000
-@onready var base_health = 25
+@onready var base_health = 2500
 
 func _ready() -> void:
 	base.add_to_group("Base")
@@ -21,14 +21,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	label.text = "Balance: " + str(money)
 	Wave.text = "Wave: " + str(wave_level)
-	if Input.is_action_just_pressed("NextWave") && wave_started == false:
-		wave_started = true
-		wave_level += 1
-		for i in range(1,wave_level * 7):
-			enemy_spawn()
-			await get_tree().create_timer(0.4).timeout
-			if i == (wave_level * 7 - 1):
-				wave_started = false
 
 func enemy_spawn() -> void:
 	var enemy = enemy_scene.instantiate()
@@ -50,3 +42,14 @@ func stop_all():
 
 func select_turret(scene: PackedScene):
 	selected_turret_scene = scene
+
+
+func _on_next_wave_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT and  !wave_started:
+		wave_started = true
+		wave_level += 1
+		for i in range(1,wave_level * 7):
+			enemy_spawn()
+			await get_tree().create_timer(0.4).timeout
+			if i == (wave_level * 7 - 1):
+				wave_started = false

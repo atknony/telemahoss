@@ -90,13 +90,6 @@ shape = SubResource("RectangleShape2D_bf53h")
 position = Vector2(114.75, 443)
 shape = SubResource("RectangleShape2D_71axn")
 
-[node name="Wave" type="Label" parent="."]
-offset_left = 69.0
-offset_top = 558.0
-offset_right = 409.0
-offset_bottom = 627.0
-theme_override_font_sizes/font_size = 50
-
 [node name="Base" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Base"]
@@ -211,20 +204,6 @@ offset_right = 855.881
 offset_bottom = 477.31
 script = ExtResource("8_2irst")
 
-[node name="TurretSlot10" type="Panel" parent="Turret Slots"]
-offset_left = 860.714
-offset_top = 411.31
-offset_right = 926.714
-offset_bottom = 477.31
-script = ExtResource("8_2irst")
-
-[node name="TurretSlot11" type="Panel" parent="Turret Slots"]
-offset_left = 932.143
-offset_top = 411.905
-offset_right = 998.143
-offset_bottom = 477.905
-script = ExtResource("8_2irst")
-
 [node name="TurretSlot16" type="Panel" parent="Turret Slots"]
 offset_left = 1002.98
 offset_top = 483.333
@@ -244,20 +223,6 @@ offset_left = 789.881
 offset_top = 482.738
 offset_right = 855.881
 offset_bottom = 548.738
-script = ExtResource("8_2irst")
-
-[node name="TurretSlot19" type="Panel" parent="Turret Slots"]
-offset_left = 860.714
-offset_top = 482.738
-offset_right = 926.714
-offset_bottom = 548.738
-script = ExtResource("8_2irst")
-
-[node name="TurretSlot20" type="Panel" parent="Turret Slots"]
-offset_left = 932.143
-offset_top = 483.333
-offset_right = 998.143
-offset_bottom = 549.333
 script = ExtResource("8_2irst")
 
 [node name="TurretSlot21" type="Panel" parent="Turret Slots"]
@@ -421,20 +386,6 @@ offset_right = 304.095
 offset_bottom = 485.048
 script = ExtResource("8_2irst")
 
-[node name="TurretSlot48" type="Panel" parent="Turret Slots"]
-offset_left = 151.19
-offset_top = 463.095
-offset_right = 217.19
-offset_bottom = 529.095
-script = ExtResource("8_2irst")
-
-[node name="TurretSlot49" type="Panel" parent="Turret Slots"]
-offset_left = 151.19
-offset_top = 535.119
-offset_right = 217.19
-offset_bottom = 601.119
-script = ExtResource("8_2irst")
-
 [node name="TurretSlot50" type="Panel" parent="Turret Slots"]
 offset_left = 151.191
 offset_top = 391.667
@@ -442,39 +393,11 @@ offset_right = 217.191
 offset_bottom = 457.667
 script = ExtResource("8_2irst")
 
-[node name="TurretSlot51" type="Panel" parent="Turret Slots"]
-offset_left = 10.119
-offset_top = 463.69
-offset_right = 76.119
-offset_bottom = 529.69
-script = ExtResource("8_2irst")
-
-[node name="TurretSlot52" type="Panel" parent="Turret Slots"]
-offset_left = 10.119
-offset_top = 535.714
-offset_right = 76.119
-offset_bottom = 601.714
-script = ExtResource("8_2irst")
-
 [node name="TurretSlot53" type="Panel" parent="Turret Slots"]
 offset_left = 10.1191
 offset_top = 392.262
 offset_right = 76.1191
 offset_bottom = 458.262
-script = ExtResource("8_2irst")
-
-[node name="TurretSlot54" type="Panel" parent="Turret Slots"]
-offset_left = 79.7619
-offset_top = 463.69
-offset_right = 145.762
-offset_bottom = 529.69
-script = ExtResource("8_2irst")
-
-[node name="TurretSlot55" type="Panel" parent="Turret Slots"]
-offset_left = 79.7619
-offset_top = 535.714
-offset_right = 145.762
-offset_bottom = 601.714
 script = ExtResource("8_2irst")
 
 [node name="TurretSlot56" type="Panel" parent="Turret Slots"]
@@ -750,5 +673,22 @@ offset_right = 764.214
 offset_bottom = 246.952
 script = ExtResource("8_2irst")
 
+[node name="Turret" parent="." instance=ExtResource("4_kldst")]
+position = Vector2(928.571, 491.071)
+
+[node name="NextWave" type="Panel" parent="."]
+offset_left = 24.0
+offset_top = 564.0
+offset_right = 200.0
+offset_bottom = 631.0
+
+[node name="Wave" type="Label" parent="."]
+offset_left = 25.0
+offset_top = 564.0
+offset_right = 200.0
+offset_bottom = 633.0
+theme_override_font_sizes/font_size = 50
+
 [connection signal="timeout" from="Enemy_Spawn_Time" to="." method="enemy_spawn"]
 [connection signal="area_shape_entered" from="Base" to="." method="_on_base_area_shape_entered"]
+[connection signal="gui_input" from="NextWave" to="." method="_on_next_wave_gui_input"]

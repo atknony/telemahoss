@@ -5,6 +5,7 @@ extends Area2D
 
 var enemies_in_range: Array[Area2D] = []
 var fire_timer := 0.0
+@onready var Turret = $"."
 
 func _process(delta):
 	fire_timer -= delta
@@ -41,3 +42,8 @@ func _on_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, 
 func _on_area_shape_exited(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
 	if area.is_in_group("Enemies"):
 		enemies_in_range.erase(area)
+
+func _on_panel_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		get_parent().upgrade_turret(Turret)
+		get_parent().money -= 500

@@ -20,4 +20,12 @@ texture = ExtResource("1_8m3st")
 scale = Vector2(8, 8)
 shape = SubResource("CircleShape2D_8m3st")
 
+[node name="Panel" type="Panel" parent="."]
+z_index = -1000
+offset_left = -5.0
+offset_top = -7.0
+offset_right = 5.0
+offset_bottom = 7.0
+
 [connection signal="area_shape_entered" from="." to="." method="_on_area_shape_entered"]
+[connection signal="gui_input" from="Panel" to="." method="_on_panel_gui_input"]

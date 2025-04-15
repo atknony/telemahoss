@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cr5sduoux11ue"]
+
+[node name="MainMenu" type="Node2D"]
+
+[node name="Play" type="Panel" parent="."]
+offset_left = 23.0
+offset_top = 228.0
+offset_right = 203.0
+offset_bottom = 317.0
+
+[node name="Settings" type="Panel" parent="."]
+offset_left = 28.0
+offset_top = 353.0
+offset_right = 200.0
+offset_bottom = 443.0

@@ -742,7 +742,7 @@ offset_top = 580.071
 offset_right = 202.381
 offset_bottom = 647.071
 
-[node name="Sprite2D" type="Sprite2D" parent="NextWave"]
+[node name="Sprite" type="Sprite2D" parent="NextWave"]
 texture_filter = 3
 position = Vector2(106.357, 68.7382)
 scale = Vector2(3, 3)

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b5r77vl5iyblj"
-path="res://.godot/imported/pngtree-game-over-pixel-transparent-background-png-image_2916467.jpg-b782df5ad9f17f87b4f6cf6d418ed1df.ctex"
+path="res://.godot/imported/gameover.jpg-9e22a6b24039e4e98da5d19c719bf534.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Dümenden/pngtree-game-over-pixel-transparent-background-png-image_2916467.jpg"
-dest_files=["res://.godot/imported/pngtree-game-over-pixel-transparent-background-png-image_2916467.jpg-b782df5ad9f17f87b4f6cf6d418ed1df.ctex"]
+source_file="res://Assets/Dümenden/gameover.jpg"
+dest_files=["res://.godot/imported/gameover.jpg-9e22a6b24039e4e98da5d19c719bf534.ctex"]
 
 [params]
 

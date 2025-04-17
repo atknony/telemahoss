@@ -26,7 +26,8 @@ func _on_area_entered(area: Area2D) -> void:
 	if (area.is_in_group("Bullet")):
 		health -= 1
 		if health <= 0:
-			get_parent().money += 150
+			var level = get_parent().wave_level
+			get_parent().money += 100 * level
 			queue_free()
 	elif (area.is_in_group("Base")):
 		queue_free()

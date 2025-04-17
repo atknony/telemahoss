@@ -13,7 +13,7 @@ var selected_turret_scene: PackedScene = null
 
 @onready var wave_level = 0
 @onready var money = 15000
-@onready var base_health = 2500
+@onready var base_health = 25
 
 func _ready() -> void:
 	base.add_to_group("Base")

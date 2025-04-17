@@ -45,6 +45,6 @@ func _on_area_shape_exited(area_rid: RID, area: Area2D, area_shape_index: int, l
 			enemies_in_range.erase(area)
 
 func _on_panel_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT and get_parent().money >= 500:
 		get_parent().upgrade_turret(Turret)
 		get_parent().money -= 500

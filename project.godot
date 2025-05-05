@@ -11,9 +11,12 @@ config_version=5
 [application]
 
 config/name="telamahos"
-run/main_scene="uid://b77kdm8e0qx48"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://Assets/icon.svg"
+
+[autoload]
+
+SceneManager="*res://Scripts/SceneManager.gd"
 
 [display]
 
